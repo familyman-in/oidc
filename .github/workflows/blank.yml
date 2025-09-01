@@ -1,28 +1,30 @@
+name: List GCP VMs
+
 on:
   push:
     branches:
-      - main
+      - main  # Ensure the action only runs for pushes to the 'main' branch.
+  workflow_dispatch:  # Allows manual triggering of the workflow.
 
-  workflow_dispatch:
-  
 permissions:
-  id-token: write
-  
+  id-token: write  # Grants the workflow permission to write the ID token.
+
 jobs:
   list-vms:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Runs on the latest Ubuntu VM in GitHub Actions
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Checkout the code
 
       - name: Set up Google Cloud authentication
         id: gcloud-auth
         uses: 'google-github-actions/auth@v3'
         with:
-          service_account: 'svc-111@oidc-470809.iam.gserviceaccount.com'
-          workload_identity_provider: 'projects/156097878358/locations/global/workloadIdentityPools/gitpool/providers/github'
-        
+          service_account: 'svc-111@oidc-470809.iam.gserviceaccount.com'  # Your GCP service account
+          workload_identity_provider: 'projects/156097878358/locations/global/workloadIdentityPools/gitpool/providers/github'  # Workload Identity Provider for GitHub Actions
+          audience: 'https://iam.googleapis.com/projects/156097878358/locations/global/workloadIdentityPools/gitpool/providers/github'  # Ensure the audience matches your Workload Identity Pool provider.
+
       - name: List VMs in GCP
         run: |
-          gcloud compute instances list --project YOUR_PROJECT_ID --zone YOUR_ZONE
+          gcloud compute instances list --project YOUR_PROJECT_ID --zone YOUR_ZONE  # Replace YOUR_PROJECT_ID and YOUR_ZONE with actual values
