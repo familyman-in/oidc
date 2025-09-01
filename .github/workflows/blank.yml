@@ -6,7 +6,10 @@ on:
       - main
 
   workflow_dispatch:
-
+  
+permissions:
+  id-token: write
+  
 jobs:
   list-vms:
     runs-on: ubuntu-latest
