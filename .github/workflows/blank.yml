@@ -23,7 +23,6 @@ jobs:
         with:
           service_account: 'svc-111@oidc-470809.iam.gserviceaccount.com'  # Your GCP service account
           workload_identity_provider: 'projects/156097878358/locations/global/workloadIdentityPools/gitpool/providers/github'  # Workload Identity Provider for GitHub Actions
-          audience: 'https://iam.googleapis.com/projects/156097878358/locations/global/workloadIdentityPools/gitpool/providers/github'  # Ensure the audience matches your Workload Identity Pool provider.
 
       - name: List VMs in GCP
         run: |
